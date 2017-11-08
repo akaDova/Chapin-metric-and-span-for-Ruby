@@ -5,7 +5,7 @@ const formatReg = require('./format');
 let spen = new Spen();
 const codeText = fs.readFileSync('./parse.rb', 'utf-8').replace(/;/g, '\n').split('\n').map(line => line.trim());
 const inputs = ['gets'];
-const contr = ['while', 'until', 'if'];
+const contr = ['while', 'until', 'if', 'сase'];
 
 let metrics = [];
 spen.idents.forEach(ident => {
@@ -13,7 +13,7 @@ spen.idents.forEach(ident => {
         let codeIdents = codeText.filter(line => new RegExp(/*'\\b' + */formatReg(ident.id) + '\\b').test(line));
         if (codeIdents.filter(line => contr.filter(op => new RegExp('\\b' + formatReg(op) + '\\b' + '\\s*').test(line)).length).length)
             metrics.push({ ident: ident.id, type: 'C'});
-        else if (codeIdents.filter(line => new RegExp(/*'\\b' +*/ formatReg(ident.id) + '\\b' +  '\\s*' + '=' + '\\s*').test(line)).length > 1)
+        else if (codeIdents.filter(line => new RegExp(/*'\\b' +*/ formatReg(ident.id) + '\\b' +  '\\s*' + '=' + '\\s*').test(line)).length > 1 || ident.cons)
             metrics.push({ ident: ident.id, type: 'M'});
         else if (codeIdents.filter(line => inputs.filter(input => new RegExp('\\b' + formatReg(input) + '\\b' +'\\s*').test(line)).length).length)
             metrics.push({ ident: ident.id, type: 'P'});
