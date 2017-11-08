@@ -9,7 +9,7 @@ function Spen() {
             .filter(function(str){ return str != "" && /\s+=\s+.+/.test(str) })
             .map(str => str.trim().replace(/\s+=\s+.+/, ""))
             .filter((str, i, arr)  => arr.indexOf(str) == i)
-            .map(function(ident) { return {id: ident,  num: text.match(new RegExp(`\\s*${(require('./format'))(ident)}\\s*`, "g")).length - 1, cons: /[A-Z]+/.test(ident) } });
+            .map(function(ident) { return {id: ident,  num: text.match(new RegExp(`\\b${(require('./format'))(ident)}\\b`, "g")).length - 1, cons: /[A-Z]+/.test(ident) } });
 
     })();
 
