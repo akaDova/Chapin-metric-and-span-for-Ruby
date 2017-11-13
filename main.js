@@ -1,14 +1,14 @@
-const Spen = require('./spen');
+const Span = require('./span');
 const fs = require('fs');
 const formatReg = require('./format');
 try {
-    let spen = new Spen();
+    let span = new Span();
     const codeText = fs.readFileSync('./parse.rb', 'utf-8').replace(/;/g, '\n').split('\n').map(line => line.trim());
     const inputs = ['gets'];
     const contr = ['while', 'until', 'if', 'сase'];
 
     let metrics = [];
-    spen.idents.forEach(ident => {
+    span.idents.forEach(ident => {
 
         let codeIdents = codeText.filter(line => new RegExp('\\b' + formatReg(ident.id) + '\\b').test(line));
         if (codeIdents.filter(line => contr.filter(op => new RegExp('\\b' + formatReg(op) + '\\b' + '\\s*').test(line)).length).length)
@@ -20,7 +20,7 @@ try {
         else
             metrics.push({ident: ident.id, type: 'T'});
     });
-    spen.show();
+    span.show();
     let groupsNum = {};
     ['P', 'C', 'M', 'T'].forEach(type => {
         console.log(type + ':');
