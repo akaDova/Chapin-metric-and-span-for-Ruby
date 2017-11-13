@@ -3,7 +3,7 @@ const fs = require('fs');
 const formatReg = require('./format');
 try {
     let span = new Span();
-    const codeText = fs.readFileSync('./parse.rb', 'utf-8').replace(/;/g, '\n').split('\n').map(line => line.trim());
+    const codeText = fs.readFileSync('./code.rb', 'utf-8').replace(/;/g, '\n').split('\n').map(line => line.trim());
     const inputs = ['gets'];
     const contr = ['while', 'until', 'if', 'сase'];
 
@@ -33,5 +33,5 @@ try {
     let Q = groupsNum['P'] + 2 * groupsNum['M'] + 3 * groupsNum['C'] + 0.5 * groupsNum['T'];
     console.log(`Q = P + 2*M + 3*C + 0.5*T = ${groupsNum['P']} + 2*${groupsNum['M']} + 3*${groupsNum['C']} + 0.5*${groupsNum['T']} = ${Q}`);
 } catch (e) {
-    console.log(e);
+    console.log("Ruby code is wrong");
 }
